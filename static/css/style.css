@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.left-column {
+    flex-basis: 66.66%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.right-column {
+    flex-basis: 33.33%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin-left: 2px;
+}
+
+.right-row {
+    margin-bottom: 20px;
+}
