@@ -1,5 +1,5 @@
 # CPSC406-Chess-Project
-##Install Stockfish
+## Install Stockfish
     sudo apt-get install stockfish
-##Install python chess library
+## Install python chess library
     pip3 install chess
