@@ -8,6 +8,3 @@ class HomePage(MethodView):
     def get(self):
         return render_template("index.html")
 
-
-
-
