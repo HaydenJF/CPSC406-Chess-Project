@@ -11,13 +11,19 @@ if __name__ == "__main__":
     while not board.is_game_over():
         #moves that can be played per turn
         moves = list(board.legal_moves)
-        print(moves)
-        print(len(moves))
+        print(board.fen())
         if board.turn == chess.WHITE:
+            print("players move")
+            print(moves)
+            print(len(moves))
             move = input("Enter your move: ")
             board.push_san(move)
         else:
-            result = engine.play(board, chess.engine.Limit(time=2.0))
+            print("stockfish move")
+            print(moves)
+            print(len(moves))
+            
+            result = engine.play(board, chess.engine.Limit(depth=25))
             print(result)
             board.push(result.move)
         board_svg = chess.svg.board(board=board)
