@@ -4,8 +4,10 @@
 ## Install python chess library
     pip3 install chess
 
+## source venv/bin/activate
+
 ## Run the program
-    To run the program you need to have stockfish installed.
-    The main thing you have to do is run main.py at python 3.10.6.
-    It is a flask application with a custom port so make sure you have nothing else running on port 5005.
-    Right now the backend isn't completely connected to the front end so it is a little broken.  This will be fixed by next Friday..
+Right now, I think this only works for linux distros.  You need to install stockfish using the command above (or similar one if you don't have apt-get)
+If you have stockfish in a different location than '/usr/games/stockfish' you can update board_position to match yours.
+Install the requirements in requirements.txt
+Run main.py and open up the browser
