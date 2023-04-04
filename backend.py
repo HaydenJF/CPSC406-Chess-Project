@@ -6,18 +6,23 @@ import webbrowser
 
 engine = chess.engine.SimpleEngine.popen_uci('/usr/games/stockfish')
 
-board = chess.Board()
+board = chess.Board('rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
 if __name__ == "__main__":
     while not board.is_game_over():
         #moves that can be played per turn
         moves = list(board.legal_moves)
         print(board.fen())
+        board_svg = chess.svg.board(board=board)
+        with open("/static/images/board.svg", "w") as f:
+            f.write(board_svg)
         if board.turn == chess.WHITE:
             print("players move")
             print(moves)
             print(len(moves))
             move = input("Enter your move: ")
             board.push_san(move)
+            
+            
         else:
             print("stockfish move")
             print(moves)
@@ -28,8 +33,8 @@ if __name__ == "__main__":
             board.push(result.move)
         board_svg = chess.svg.board(board=board)
 
-        with open("/static/images/board.svg", "w") as f:
-            f.write(board_svg)
+        '''with open("../static/images/board.svg", "w") as f:
+            f.write(board_svg)'''
 
 
     print("Game over: ", board.result())

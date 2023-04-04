@@ -11,38 +11,113 @@
 
 <body>
 	<h1 class="h1">Chess Program</h1>
-	<div class="container">
+	<div class="main">
+		<form action="/" method="POST" name="navbar">
+			<nav class="navbar ">
 
-		<div class="inner-container">
-			<div class="row">
-				<div class="box">
-					<form action="/" method="POST">
-						<input class="input-box" type="text" name="input-field" placeholder="enter your move here">
-						<button class="button" name="player-button" type="submit">Player</button>
-						<button class="button" name="stockfish-button" type="submit">Stockfish</button>
-					</form>
-				</div>
-			</div>
-			<div class="row">
-				<div class="box">
-					<div class="left-column">
-						<img src="../static/images/board.svg" alt="Image description" width="600" height="600">
+				<ul>
+					{% for i in list['list_moves'] %}
+					<li><button name="board_position_button", value="{{i[1]}}", type="submit">{{i[0]}}</button></li>
+
+      				{% endfor %}
+
+				</ul>
+			</nav>
+		</form>
+		<div class="block ">
+			<div class="container ">
+
+				<div class="inner-container ">
+					<div class="row">
+						<div class="box ">
+							<form action="/" method="POST" name="board-buttons">
+								<input class="input-box" type="text" name="input-field"
+									placeholder="enter your move here">
+								<button class="button" name="player-button" type="submit">Player</button>
+								<button class="button" name="stockfish-button" type="submit">Stockfish</button>
+							</form>
+						</div>
 					</div>
-					<div class="right-column">
-						<div class="right-row">
-							<p>This is the top row of the right column.</p>
+					<div class="row">
+						<div class="box ">
+							<div class="left-column ">
+								<img src="../static/images/board.svg" alt="Image description" width="300" height="300">
+							</div>
+							<div class="right-column ">
+								<div class="right-row">
+									<p>Score = {{list["score"]}}</p>
+								</div>
+								<div class="right-row">
+									<p>Depth = {{list["d"]}}</p>
+								</div>
+								<div class="right-row">
+									<p>B count = {{list["b"]}}</p>
+								</div>
+							</div>
 						</div>
-						<div class="right-row">
-							<p>This is the middle row of the right column.</p>
+					</div>
+				</div>
+				<div class="lower-container ">
+					<h2 class="lower-title ">Top V Scores</h2>
+					<div class="lower-container-group ">
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topV/board1.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_v"][0][1]}}: {{list["top_v"][0][0]}}</h3>
+							</div>
 						</div>
-						<div class="right-row">
-							<p>This is the bottom row of the right column.</p>
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topV/board2.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_v"][1][1]}}: {{list["top_v"][1][0]}}</h3>
+							</div>
+						</div>
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topV/board3.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_v"][2][1]}}: {{list["top_v"][2][0]}}</h3>
+							</div>
+						</div>
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topV/board4.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_v"][3][1]}}: {{list["top_v"][3][0]}}</h3>
+							</div>
+						</div>
+					</div>
+
+					<h2 class="lower-title ">Top B Scores</h2>
+					<div class="lower-container-group ">
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topB/board1.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_b"][0][1]}}: {{list["top_b"][0][0]}}</h3>
+							</div>
+						</div>
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topB/board2.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_b"][1][1]}}: {{list["top_b"][1][0]}}</h3>
+							</div>
+						</div>
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topB/board3.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_b"][2][1]}}: {{list["top_b"][2][0]}}</h3>
+							</div>
+						</div>
+						<div class="lower-box-container ">
+							<div class="lower-board">
+								<img src="../static/images/topB/board4.svg" alt="Image description" width="50" height="50">
+								<h3 class="lower-description ">{{list["top_b"][3][1]}}: {{list["top_b"][3][0]}}</h3>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </body>
 
 </html>
