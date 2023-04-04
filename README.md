@@ -4,7 +4,12 @@
 ## Install python chess library
     pip3 install chess
 
-## source venv/bin/activate
-
-## Run the program
-Okay I fixed the stockfish thing.  So all you need to do is install the requirements.txt file and run main.py.
+## Download Requirements
+Type: 
+    source venv/bin/activate
+This should give you the ability to see (venv) next to your name in terminal.  Make sure you are using python3.10.6.
+    python3 --verion
+Make sure the requirements are installed:
+    pip3 install -r requirements.txt
+Now run main.py:
+    python3 main.py
