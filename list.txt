@@ -1,0 +1,16 @@
+Make it so user selects what color they are.
+Make it so user can't enter a bad value.
+Allow user to make move or let bot make a move.
+
+Display D(depth), V(value), Past moves
+
+Create Nav on left for history
+Make it so you can look at past moves
+Make it so you can edit past moves
+
+Display top 4 v score moves
+Display top 4 b score
+
+
+Bugs needed to be fixed:
+Fix visual issue with boards and blocks.

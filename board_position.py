@@ -4,7 +4,19 @@ import chess.svg
 import webbrowser
 
 class Position:
-    
+    """
+    engine: this is the chess engine, never needs to be dynamically adjusted, basically just connects to stockfish.
+    board: think of board as the current position at play.  It also keeps track of whos move it is.
+    d: this is the depth.  Currently set to 10.  Currently can't be changed.
+    p: this is the position.  Is the stringlike object passed around for non-current boards.
+    v: this is stockfish score with extra stuff too.
+    children: this is the possible moves a current position
+    min_b: this is the minimum b score necessary to be considered a good child move.
+    b: this is the special function we are trying to solve for.  Dr. Kurz had a really good description of it https://hackmd.io/@alexhkurz/Hk5sjmHkh  (he called it w).
+    score: this just gives the score.
+    top_v: the top v scores (set to 4)
+    top_b: the top b scores (set to 4)
+    """
     def __init__(self, position='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', depth=10, engine = chess.engine.SimpleEngine.popen_uci('./stockfish'), minimum_b=0):
         self.engine = engine
         self.board  = chess.Board(position)
@@ -27,7 +39,7 @@ class Position:
         
     
     def set_children(self, position=None):
-        """_summary_
+        """finds the children.  Returns the children and their v scores.
         """
         if position is None:
             board = self.board
@@ -46,15 +58,18 @@ class Position:
         
         return scores
 
-# Sort moves by score and get top 10
-#sorted_moves = sorted(zip(moves, scores), key=lambda x: x[1], reverse=True)[:10]
-
     
     def set_v(self):
+        """
+        Caluclates the v (think stockfish) and adds aditional important details to the v.  Returns v and details of v.
+        """
         v = self.engine.play(self.board, chess.engine.Limit(depth=self.d))
         return v
     
     def set_b(self, position=None):
+        """
+        Calculates the current b value (Average of children v score).  Returns sum of values greater than minimum b score.
+        """
         if position is None:
             board = self.board
         else:
@@ -70,6 +85,9 @@ class Position:
         return b_count
     
     def get_children_with_b(self, position=None):
+        """
+        Returns a list with the children, v score, and b score.
+        """
         if position is None:
             board = self.board
         else:
@@ -86,6 +104,9 @@ class Position:
         return children_with_b
             
     def get_top_v(self, position=None, count=4):
+        """
+        Returns the top 4 v scores and their moves.
+        """
         if position is None:
             board = self.board
         else:
@@ -106,6 +127,9 @@ class Position:
         
 
     def get_top_b(self, position=None, count=4):
+        """
+        Returns the top 4 b scores and their moves.
+        """
         if position is None:
             board = self.board
         else:
@@ -124,6 +148,9 @@ class Position:
             
         
     def update_svg(self, position=None):
+        """
+        Updates the svg to the current board position (or to what the player selects on the side.)
+        """
         if position is None:
             board = self.board
         else:
@@ -135,6 +162,9 @@ class Position:
     
     
     def update_board(self, move):
+        """
+        Updates the board one move.
+        """
         #engine
         self.board.push_san(move)
         #d
@@ -153,9 +183,15 @@ class Position:
         self.list_moves.append((move,self.board.fen()))
         
     def stockfish_update_board(self):
+        """
+        Updates the board as stockfish would.
+        """
         self.update_board(self.v.move.uci())
         
     def set_score(self, position=None):
+        """
+        Returns the score of the board or current position
+        """
         if position is None:
             board = self.board
         else:
@@ -168,6 +204,9 @@ class Position:
         
         
     def get_everything(self):
+        """
+        Returns all the variables to Flask
+        """
         list = {}
         list["d"] = self.d
         list["v"] = self.v
@@ -183,6 +222,9 @@ class Position:
         return list
     
     def get_whos_turn(self, position=None):
+        """
+        Gets if its black or white pieces move
+        """
         if position is None:
             board = self.board
         else:
@@ -193,6 +235,9 @@ class Position:
         return -1
     
     def possible_move(self, position=None):
+        """
+        Returns the possible moves the position can have next.
+        """
         if position is None:
             board = self.board
         else:
@@ -212,32 +257,3 @@ class Position:
     
     
 
-
-'''while not board.is_game_over():
-        #moves that can be played per turn
-        moves = list(board.legal_moves)
-        print(moves)
-        print(len(moves))
-        if board.turn == chess.WHITE:
-            move = input("Enter your move: ")
-            board.push_san(move)
-        else:
-            result = engine.play(board, chess.engine.Limit(time=2.0))
-            print(result)
-            board.push(result.move)
-        board_svg = chess.svg.board(board=board)
-
-        with open("/static/images/board.svg", "w") as f:
-            f.write(board_svg)
-'''
-'''# Calculate evaluation score for each move
-scores = []
-for move in moves:
-    board.push(move)
-    result = engine.analyse(board, chess.engine.Limit(time=2.0))
-    scores.append(result["score"].relative.score())
-    board.pop()
-
-# Sort moves by score and get top 10
-sorted_moves = sorted(zip(moves, scores), key=lambda x: x[1], reverse=True)[:10]
-'''
