@@ -5,7 +5,7 @@ import webbrowser
 
 class Position:
     
-    def __init__(self, position='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', depth=10, engine = chess.engine.SimpleEngine.popen_uci('/usr/games/stockfish'), minimum_b=0):
+    def __init__(self, position='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', depth=10, engine = chess.engine.SimpleEngine.popen_uci('./stockfish'), minimum_b=0):
         self.engine = engine
         self.board  = chess.Board(position)
         self.d = depth
