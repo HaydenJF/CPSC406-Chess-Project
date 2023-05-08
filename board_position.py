@@ -34,7 +34,7 @@ class Position:
         self.top_v = self.get_top_v()
         self.top_b = self.get_top_b()
   
-        self.list_moves = [("Starting Board", self.p)]
+        self.list_moves = [("Starting Board", self.p, 0)]
         
         
     
@@ -58,7 +58,7 @@ class Position:
         
         return scores
 
-    
+
     def set_v(self):
         """
         Caluclates the v (think stockfish) and adds aditional important details to the v.  Returns v and details of v.
@@ -76,8 +76,8 @@ class Position:
             board = chess.Board(position)
             
         temp_children = self.set_children(position=position)
+        #take each
         b_count = 0;
-        
         for i in temp_children:
             if i[0]*self.get_whos_turn(position) > self.min_b:
                 b_count += 1
@@ -98,6 +98,8 @@ class Position:
         children_with_b = []
         for i in temp_children:
             temp_board = chess.Board(i[2])
+            result = self.engine.play(temp_board, chess.engine.Limit(depth=self.d))
+            temp_board.push(result.move)
             temp_b = self.set_b(temp_board.fen())
             children_with_b.append([i[0], i[1], i[2], temp_b])
         
@@ -118,7 +120,7 @@ class Position:
             sorted_children = sorted(children, key=lambda x: x[0])
         list_send = []
         for i in range(count):
-            list_send.append((sorted_children[i][0], sorted_children[i][1]))
+            list_send.append((sorted_children[i][0], sorted_children[i][1], sorted_children[i][2]))
             board_svg = chess.svg.board(board=chess.Board(sorted_children[i][2]))
             file_path = "static/images/topV/board{}.svg".format(i+1)
             with open(file_path, "w") as f:
@@ -138,7 +140,7 @@ class Position:
         sorted_children = sorted(children, key=lambda x: x[3], reverse=True)
         list_send = []
         for i in range(count):
-            list_send.append((sorted_children[i][3], sorted_children[i][1]))
+            list_send.append((sorted_children[i][3], sorted_children[i][1], sorted_children[i][2]))
             board_svg = chess.svg.board(board=chess.Board(sorted_children[i][2]))
             file_path = "static/images/topB/board{}.svg".format(i+1)
             with open(file_path, "w") as f:
@@ -158,6 +160,18 @@ class Position:
         board_svg = chess.svg.board(board=board)
         with open("static/images/board.svg", "w") as f:
             f.write(board_svg)
+            
+    def update_other_svg(self, list_v, list_b, count=4):
+        for i in range(count):
+            board_svg = chess.svg.board(board=chess.Board(list_v[i][2]))
+            file_path = "static/images/topV/board{}.svg".format(i+1)
+            with open(file_path, "w") as f:
+                f.write(board_svg)  
+        for i in range(count):
+            board_svg = chess.svg.board(board=chess.Board(list_b[i][2]))
+            file_path = "static/images/topB/board{}.svg".format(i+1)
+            with open(file_path, "w") as f:
+                f.write(board_svg)  
     
     
     
@@ -180,7 +194,7 @@ class Position:
         self.top_v = self.get_top_v()
         self.top_b = self.get_top_b()
         
-        self.list_moves.append((move,self.board.fen()))
+        self.list_moves.append((move,self.board.fen(), len(self.list_moves)))
         
     def stockfish_update_board(self):
         """
