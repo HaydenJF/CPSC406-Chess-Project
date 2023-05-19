@@ -11,4 +11,4 @@
 ### You can then build and run your docker container with the following commands:
     sudo docker build -t chess-app .
     sudo docker run -p 5005:5005 chess-app
-### Click the link that flask outputs to open the flask app.
+### Click the link that flask outputs to open the flask app.  This doesn't work on ARM architecture.  If you have ARM (such as an M1 chip) use an ubuntu 22.04 virtual machine (I recommend virtualbox).
