@@ -1,10 +1,12 @@
 # CPSC406-Chess-Project <br/>
-# Download Requirements
-### Type: 
-    source venv/bin/activate
-### This should give you the ability to see (venv) next to your name in terminal.  Make sure you are using python3.10.6.
-    python3 --verion
-### Make sure the requirements are installed:
-    pip3 install -r requirements.txt
-### Now run main.py:
-    python3 main.py
+## Running the program
+### After cloning the repo cd into the folder:
+    cd CPSC406-Chess-Project
+### Then you need to download docker:
+    https://docs.docker.com/get-docker/
+### Make sure have it installed:
+    docker --version
+### You can then build and run your docker container with the following commands:
+    sudo docker build -t chess-app .
+    sudo docker run -p 5005:5005 chess-app
+### Click the link that flask outputs to open the flask app.
